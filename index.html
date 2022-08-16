@@ -18,110 +18,110 @@
     </nav>
 
     <div class="contain">
-        <div class="input-wrap">
-            <div class="input-contain row">
-                <label class="top-heading" for="todo-input"><strong>Tell us what you need to get done, and how urgent it is.</strong></label>
-                <br>
-                <input type="text" class="input col-lg-8" placeholder="What's your plan?" id="todo-input">
-                <select name="priority" class="col-lg-3" id="priority-contain">
+      <div class="input-wrap">
+          <div class="input-contain row">
+              <label class="top-heading" for="todo-input"><strong>Tell us what you need to get done, and how urgent it is.</strong></label>
+              <br>
+              <input type="text" class="input col-lg-8" placeholder="What's your plan?" id="todo-input">
+              <select name="priority" class="select-query col-lg-3" id="priority-contain">
+                  <option value="0">Priority Level</option>
+                  <option value="whenever">Whenever</option>
+                  <option value="up-next">Up next</option>
+                  <option value="get to it">Get to it!</option>
+              </select>
+              <button id="submit" class="btn col-2 mt-3 flex btn-primary">Save</button>
+          </div>
+          <div class="modal" id="error-modal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p id="err-content"></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+          
+
+      </div>
+
+      <div class="list-wrap">
+        <div class="row justify-content-center cust-wrap">
+          <div class="col-lg-3 col-md-9 col-sm-8 col-xs-8 item-box list-box-get">
+            <h4 class="box-title get-title">
+                Get to it!
+            </h4>
+            <ol id="now-list" class="list-items">
+
+            </ol>
+          </div>
+          <div class="col-lg-3 col-md-9 col-sm-8 col-xs-8 item-box list-box-next">
+            <h4 class="box-title next-title">
+                Up next
+            </h4>
+            <ol id="next-list" class="list-items">
+
+            </ol>
+          </div>
+          <div class="col-lg-3 col-md-9 col-sm-8 col-xs-8 item-box list-box-when">
+            <h4 class="box-title when-title">
+                Whenever
+            </h4>
+            <ol id="when-list" class="list-items">
+
+            </ol>
+          </div>
+        </div>
+          
+      </div>
+      <div class="button-wrap w-100 d-flex justify-content-center">
+        <div class="complete-wrap d-flex justify-content-center">
+            <button class="cust-btn" id="task-done">Task(s) Done</button>
+        </div>
+        <div class="move-item-wrap d-flex justify-content-center">
+            <button class="cust-btn" id="move-item">Move Item(s)</button>
+        </div>
+        <div class="modal fade" id="moveItems-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Choose which priority level to move your item(s) to.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="select-new-category">
+                  <select name="move-item-catrgories" id="modal-select">
                     <option value="0">Priority Level</option>
                     <option value="whenever">Whenever</option>
                     <option value="up-next">Up next</option>
                     <option value="get to it">Get to it!</option>
-                </select>
-                <button id="submit" class="btn col-2 mt-3 flex btn-primary">Save</button>
-            </div>
-            <div class="modal" id="error-modal" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Error</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p id="err-content"></p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
+                  </select>
                 </div>
-            </div>
-            
+                <div class="show-selected-list">
+                  <ol class="modal-list">
 
-        </div>
-
-        <div class="list-wrap">
-            <div class="row cust-wrap">
-                <div class="col item-box list-box-get">
-                    <h4 class="box-title get-title">
-                        Get to it!
-                    </h4>
-                    <ol id="now-list" class="list-items">
-    
-                    </ol>
-                </div>
-                <div class="col item-box list-box-next">
-                    <h4 class="box-title next-title">
-                        Up next
-                    </h4>
-                    <ol id="next-list" class="list-items">
-    
-                    </ol>
-                </div>
-                <div class="col item-box list-box-when">
-                    <h4 class="box-title when-title">
-                        Whenever
-                    </h4>
-                    <ol id="when-list" class="list-items">
-    
-                    </ol>
-                </div>
-            </div>
-            
-        </div>
-        <div class="button-wrap w-100 d-flex justify-content-center">
-            <div class="complete-wrap d-flex justify-content-center">
-                <button class="cust-btn" id="task-done">Task(s) Done</button>
-            </div>
-            <div class="move-item-wrap d-flex justify-content-center">
-                <button class="cust-btn" id="move-item">Move Item(s)</button>
-            </div>
-            <div class="modal fade" id="moveItems-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Choose which priority level to move your item(s) to.</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="select-new-category">
-                        <select name="move-item-catrgories" id="modal-select">
-                            <option value="0">Priority Level</option>
-                            <option value="whenever">Whenever</option>
-                            <option value="up-next">Up next</option>
-                            <option value="get to it">Get to it!</option>
-                        </select>
-                      </div>
-                      <div class="show-selected-list">
-                        <ol class="modal-list">
-
-                        </ol>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn close btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" id="save-changes" data-dismiss="modal" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
+                  </ol>
                 </div>
               </div>
-              
+              <div class="modal-footer">
+                <button type="button" class="btn close btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="save-changes" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
         </div>
+            
+      </div>
     </div>  
     
 
