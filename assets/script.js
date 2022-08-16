@@ -20,6 +20,9 @@ var listWrapDiv = $(".list-items");
 var itemsToMove = $(".to-beMoved");
 var modalListEl = $(".modal-list");
 var modalSelect = $("#modal-select");
+var keyUrgent = "urgents";
+var keyNext = "next";
+var keyWhen = "whenever";
 
 
 var addNowItem = (content) => {
@@ -94,6 +97,12 @@ var moveItems = () => {
     
 }
 
+var updateLocalStorage = (keyName, arrayName) => {
+    if(arrayName != null){
+        localStorage.setItem(keyName, JSON.stringify(arrayName));
+    }
+}
+
 var tasksDone = () => {
     console.log(storeUrgent)
     for(i = 0;i < listWrapDiv.length;i++){
@@ -111,19 +120,19 @@ var tasksDone = () => {
             storeUrgent = storeUrgent.filter((item) => {
                 return item != $(holdListItems[i]).text();
             });
-            localStorage.setItem("urgents", JSON.stringify(storeUrgent))
+            updateLocalStorage(keyUrgent, storeUrgent);
             location.reload();
         } else if($(holdListItems[i]).children().prop("checked") && storeNext.includes($(holdListItems[i]).text())){
             storeNext = storeNext.filter((item) => {
                 return item != $(holdListItems[i]).text();
             });
-            localStorage.setItem("next", JSON.stringify(storeNext))
+            updateLocalStorage(keyNext, storeNext);
             location.reload();
         }else if($(holdListItems[i]).children().prop("checked") && storeWhenever.includes($(holdListItems[i]).text())){
             storeWhenever = storeWhenever.filter((item) => {
                 return item != $(holdListItems[i]).text();
             });
-            localStorage.setItem("whenever", JSON.stringify(storeWhenever))
+            updateLocalStorage(keyWhen, storeWhenever);
             location.reload();
         };
     
@@ -171,26 +180,19 @@ var saveTodo = () => {
             addNowItem(todoInput.val());
             storeUrgent.push(todoInput.val());
             console.log(storeUrgent)
-            if(storeUrgent != null){
-                localStorage.setItem("urgents", JSON.stringify(storeUrgent));
-            }
+            updateLocalStorage(keyUrgent, storeUrgent);
             todoInput.val("");
             
         }else if(selectInput.val() === "up-next"){
             addNextItem(todoInput.val())
             storeNext.push(todoInput.val());
-            if(storeNext != null){
-                localStorage.setItem("next", JSON.stringify(storeNext));
-            }
+            updateLocalStorage(keyName, storeNext);
             todoInput.val("");
             
         } else if(selectInput.val() === "whenever"){
             addWheneverItem(todoInput.val())
             storeWhenever.push(todoInput.val());
-            if(storeWhenever != null){
-                
-                localStorage.setItem("whenever", JSON.stringify(storeWhenever));
-            }
+            updateLocalStorage(keyWhen, storeWhenever)
             todoInput.val("");
             
         } 
@@ -210,39 +212,20 @@ var closeModal = () => {
 var changePriorityLevel = (text) => {
     console.log(text);
     if(modalSelect.val() === "get to it"){
-        if(storeUrgent.includes(text)){
-            console.log("already there")
-            storeUrgent = storeUrgent.filter(item => {
-                return item === text
-            })
-            storeUrgent.push(storeUrgent);
-            if(storeUrgent != null){
-                localStorage.setItem("urgents", JSON.stringify(storeUrgent));
-            }
-        } else if(storeNext.includes(text)){
+        if(storeNext.includes(text)){
             storeNext = storeNext.filter(item => {
                 return item != text
             })
             storeUrgent.push(text);
-            if(storeUrgent != null){
-                localStorage.setItem("urgents", JSON.stringify(storeUrgent));
-            }
-            if(storeNext != null){
-                localStorage.setItem("next", JSON.stringify(storeNext));
-
-            }
+            updateLocalStorage(keyUrgent, storeUrgent);
+            updateLocalStorage(keyNext, storeNext);
         } else if(storeWhenever.includes(text)){
             storeWhenever = storeWhenever.filter(item => {
                 return item != text
             })
             storeUrgent.push(text);
-            if(storeUrgent != null){
-                localStorage.setItem("urgents", JSON.stringify(storeUrgent));
-            }
-            if(storeWhenever != null){
-                localStorage.setItem("whenever", JSON.stringify(storeWhenever));
-
-            }
+            updateLocalStorage(keyUrgent, storeUrgent);
+            updateLocalStorage(keyWhen, storeWhenever);
         }
        
     } else if(modalSelect.val() === "up-next"){
@@ -252,33 +235,15 @@ var changePriorityLevel = (text) => {
                 return item != text
             })
             storeNext.push(text);
-            if(storeNext != null){
-                localStorage.setItem("next", JSON.stringify(storeNext));
-            }
-            if(storeUrgent != null){
-                localStorage.setItem("urgents", JSON.stringify(storeUrgent))
-            }
-        } else if(storeNext.includes(text)){
-            console.log(text + "is already there");
-            storeNext = storeNext.filter(item => {
-                return item != text
-            })
-            storeNext.push(text);
-            if(storeNext != null){
-                localStorage.setItem("next", JSON.stringify(storeNext));
-            }
-            
+            updateLocalStorage(keyNext, storeNext);
+            updateLocalStorage(keyUrgent, storeUrgent);
         } else if(storeWhenever.includes(text)){
             storeWhenever = storeWhenever.filter(item => {
                 return item != text
             })
             storeNext.push(text);
-            if(storeNext != null){
-                localStorage.setItem("next", JSON.stringify(storeNext));
-            }
-            if(storeWhenever != null){
-                localStorage.setItem("whenever", JSON.stringify(storeWhenever))
-            }
+            updateLocalStorage(keyNext, storeNext);
+            updateLocalStorage(keyWhen, storeWhenever);
         }
     } else if(modalSelect.val() === "whenever"){
         if(storeUrgent.includes(text)){
@@ -286,33 +251,16 @@ var changePriorityLevel = (text) => {
                 return item != text
             })
             storeWhenever.push(text);
-            if(storeWhenever != null){
-                localStorage.setItem("whenever", JSON.stringify(storeWhenever));
-            }
-            if(storeUrgent != null){
-                localStorage.setItem("urgents", JSON.stringify(storeUrgent))
-            }
+            updateLocalStorage(keyWhen, storeWhenever);
+            updateLocalStorage(keyUrgent, storeUrgent);
         } else if(storeNext.includes(text)){
             storeNext = storeNext.filter(item => {
                 return item != text
             })
             storeWhenever.push(text);
-            if(storeWhenever != null){
-                localStorage.setItem("whenever", JSON.stringify(storeWhenever));
-            }
-            if(storeNext != null){
-                localStorage.setItem("next", JSON.stringify(storeNext))
-            }
-        } else if(storeWhenever.includes(text)){
-            console.log(`${text} is already in there`);
-            storeWhenever = storeWhenever.filter(item => {
-                return item != text
-            })
-            storeWhenever.push(text);
-            if(storeWhenever != null){
-                localStorage.setItem("whenever", JSON.stringify(storeWhenever));
-            }
-        }
+            updateLocalStorage(keyWhen, storeWhenever);
+            updateLocalStorage(keyNext, storeNext);
+        } 
     }
     
 }
