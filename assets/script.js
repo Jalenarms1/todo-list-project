@@ -212,13 +212,13 @@ var changePriorityLevel = (text) => {
     if(modalSelect.val() === "get to it"){
         if(storeUrgent.includes(text)){
             console.log("already there")
-            // storeUrgent = storeUrgent.filter(item => {
-            //     return item === text
-            // })
-            // storeUrgent.push(storeUrgent);
-            // if(storeUrgent != null){
-            //     localStorage.setItem("urgents", JSON.stringify(storeUrgent));
-            // }
+            storeUrgent = storeUrgent.filter(item => {
+                return item === text
+            })
+            storeUrgent.push(storeUrgent);
+            if(storeUrgent != null){
+                localStorage.setItem("urgents", JSON.stringify(storeUrgent));
+            }
         } else if(storeNext.includes(text)){
             storeNext = storeNext.filter(item => {
                 return item != text
@@ -260,14 +260,14 @@ var changePriorityLevel = (text) => {
             }
         } else if(storeNext.includes(text)){
             console.log(text + "is already there");
-            // storeNext = storeNext.filter(item => {
-            //     return item != text
-            // })
-            // storeNext.push(text);
-            // if(storeNext != null){
-            //     localStorage.setItem("next", JSON.stringify(storeNext));
-            // }
-            // if(store)
+            storeNext = storeNext.filter(item => {
+                return item != text
+            })
+            storeNext.push(text);
+            if(storeNext != null){
+                localStorage.setItem("next", JSON.stringify(storeNext));
+            }
+            
         } else if(storeWhenever.includes(text)){
             storeWhenever = storeWhenever.filter(item => {
                 return item != text
@@ -305,26 +305,27 @@ var changePriorityLevel = (text) => {
             }
         } else if(storeWhenever.includes(text)){
             console.log(`${text} is already in there`);
-            // holdText = storeWhenever.filter(item => {
-            //     return item === text
-            // })
-            // storeWhenever.push(holdText);
-            // if(storeWhenever != null){
-            //     localStorage.setItem("whenever", JSON.stringify(storeWhenever));
-            // }
+            storeWhenever = storeWhenever.filter(item => {
+                return item != text
+            })
+            storeWhenever.push(text);
+            if(storeWhenever != null){
+                localStorage.setItem("whenever", JSON.stringify(storeWhenever));
+            }
         }
     }
-    console.log(typeof(holdText));
+    
 }
 
 var updateChanges = () => {
+    let holdElements= [];
     console.log($(modalListEl).children())
     for(i = 0;i < $(modalListEl).children().length;i++){
-        console.log($(modalListEl).children()[i])
-
-        changePriorityLevel($(modalListEl).children([i]).text())
+        console.log($($(modalListEl).children()[i]).text().trim())
+        changePriorityLevel($($(modalListEl).children()[i]).text().trim())
     }
     location.reload();
+    
 }
 
 submitBtn.on("click", saveTodo);
