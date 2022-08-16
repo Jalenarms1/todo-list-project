@@ -148,11 +148,13 @@ option{
 .complete-wrap{
     width:30%;
     font-family: MS Gothic;
+    margin-bottom: 2%;
 }
 
 .move-item-wrap{
     width:30%;
     font-family: MS Gothic;
+    margin-bottom: 2%;
 
 }
 .cust-btn{
@@ -184,6 +186,9 @@ option{
     .list-wrap{
         width: 100vw;
     }
+    .checkbox{
+        right:-6%;
+    }
    
 }
 
@@ -198,5 +203,11 @@ option{
     }
     .complete-wrap {
         width: 50%;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .checkbox{
+        right: -8%;
     }
 }
